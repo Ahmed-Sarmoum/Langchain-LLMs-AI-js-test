@@ -1,0 +1,17 @@
+import { config } from "dotenv";
+config()
+
+import { OpenAI } from "langchain/llms/openai";
+
+const model = new OpenAI({
+    streaming: true,
+    callbacks: [
+        {
+            handleLLMNewToken(token) {
+                process.stdout.write(token)
+            }
+        }
+    ]
+})
+
+model.call("writing a song about sparkling watter.")
